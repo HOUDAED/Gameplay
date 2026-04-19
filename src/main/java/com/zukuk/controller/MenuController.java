@@ -30,7 +30,7 @@ public class MenuController implements Initializable {
         FadeTransition fade = new FadeTransition(Duration.millis(600), rootPane);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
-        fade.setOnFinished(e -> MainApp.loadScene("dialogue.fxml"));
+        fade.setOnFinished(e -> MainApp.loadScene("dialogue_intro.fxml"));
         fade.play();
     }
 

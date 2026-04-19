@@ -90,11 +90,7 @@ public class QuizController {
     @FXML
     private void handleSuivant() {
         if (score >= 5) {
-            MainApp.loadDialogue(
-                    DialogueController.getrepliquesInter1(),
-                    "quiz2.fxml",
-                    "ZUKUK  //  LOCALISATION"
-            );
+            MainApp.loadScene("dialogue_inter1.fxml");
         } else {
             chargerQuestion();
         }

@@ -1,6 +1,5 @@
 package com.zukuk;
 
-import com.zukuk.controller.DialogueController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,25 +29,6 @@ public class MainApp extends Application {
             }
             FXMLLoader loader = new FXMLLoader(url);
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            root.requestFocus();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void loadDialogue(String[] repliques, String sceneSuivante, String titre) {
-        try {
-            var url = MainApp.class.getResource(BASE_PATH + "dialogue.fxml");
-            if (url == null) {
-                System.err.println("FXML introuvable : " + BASE_PATH + "dialogue.fxml");
-                return;
-            }
-            FXMLLoader loader = new FXMLLoader(url);
-            Parent root = loader.load();
-            DialogueController ctrl = loader.getController();
-            ctrl.setDialogue(repliques, sceneSuivante, titre);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             root.requestFocus();

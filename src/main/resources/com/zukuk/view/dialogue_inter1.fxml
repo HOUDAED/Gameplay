@@ -12,7 +12,7 @@
         xmlns="http://javafx.com/javafx/17.0.12"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:id="rootPane"
-        fx:controller="com.zukuk.controller.DialogueController"
+        fx:controller="com.zukuk.controller.DialogueInter1Controller"
         prefWidth="900" prefHeight="600"
         style="-fx-background-color: #08060f;"
         onKeyPressed="#onKeyPressed"
@@ -61,10 +61,8 @@
         <Line startX="0" endX="200"
               stroke="#ff3c3c" strokeWidth="1" opacity="0.4"/>
 
-        <HBox spacing="12" alignment="CENTER_LEFT"
-              focusTraversable="false">
-            <Rectangle width="3" height="16"
-                       fill="#ff3c3c" arcWidth="2" arcHeight="2"/>
+        <HBox spacing="12" alignment="CENTER_LEFT" focusTraversable="false">
+            <Rectangle width="3" height="16" fill="#ff3c3c" arcWidth="2" arcHeight="2"/>
             <Label text="CHEF"
                    focusTraversable="false"
                    style="-fx-text-fill: #ff6b35;
@@ -96,7 +94,6 @@
                       -fx-font-size: 11px;
                       -fx-font-family: 'Georgia';
                       -fx-font-style: italic;"/>
-
     </VBox>
 
     <Line startX="0" endX="900" layoutY="599"

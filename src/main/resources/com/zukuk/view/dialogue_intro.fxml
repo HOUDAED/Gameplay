@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane
+        xmlns="http://javafx.com/javafx/17.0.12"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:id="rootPane"
+        fx:controller="com.zukuk.controller.DialogueIntroController"
+        prefWidth="900" prefHeight="600"
+        style="-fx-background-color: #08060f;"
+        onKeyPressed="#onKeyPressed"
+        focusTraversable="true">
+
+    <AnchorPane layoutX="0" layoutY="0"
+                prefWidth="340" prefHeight="600"
+                focusTraversable="false"
+                style="-fx-background-color: #0f0a1a;">
+
+        <Line startX="339" endX="339" startY="0" endY="600"
+              stroke="#ff3c3c" strokeWidth="1.5" opacity="0.5"/>
+
+        <ImageView fx:id="imageChef"
+                   fitWidth="300" fitHeight="380"
+                   preserveRatio="true"
+                   focusTraversable="false"
+                   style="-fx-effect: dropshadow(gaussian, #ff3c3c, 20, 0.25, 0, 0);"
+                   AnchorPane.topAnchor="110"
+                   AnchorPane.leftAnchor="20"/>
+
+        <Label text="CHEF"
+               focusTraversable="false"
+               style="-fx-text-fill: rgba(255,60,60,0.35);
+                      -fx-font-size: 11px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-weight: bold;"
+               AnchorPane.bottomAnchor="20"
+               AnchorPane.leftAnchor="20"/>
+    </AnchorPane>
+
+    <VBox layoutX="360" layoutY="0"
+          prefWidth="540" prefHeight="600"
+          focusTraversable="false"
+          alignment="CENTER_LEFT" spacing="28"
+          style="-fx-padding: 60 50 40 40;">
+
+        <Label fx:id="labelBriefing"
+               text="ZUKUK  //  BRIEFING"
+               focusTraversable="false"
+               style="-fx-text-fill: rgba(255,60,60,0.25);
+                      -fx-font-size: 10px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;"/>
+
+        <Line startX="0" endX="200"
+              stroke="#ff3c3c" strokeWidth="1" opacity="0.4"/>
+
+        <HBox spacing="12" alignment="CENTER_LEFT" focusTraversable="false">
+            <Rectangle width="3" height="16" fill="#ff3c3c" arcWidth="2" arcHeight="2"/>
+            <Label text="CHEF"
+                   focusTraversable="false"
+                   style="-fx-text-fill: #ff6b35;
+                          -fx-font-size: 13px;
+                          -fx-font-family: 'Georgia';
+                          -fx-font-weight: bold;"/>
+            <Label fx:id="labelProgression"
+                   focusTraversable="false"
+                   text="1 / 4"
+                   style="-fx-text-fill: rgba(255,255,255,0.15);
+                          -fx-font-size: 10px;
+                          -fx-font-family: 'Georgia';"/>
+        </HBox>
+
+        <Label fx:id="labelReplique"
+               focusTraversable="false"
+               wrapText="true"
+               prefWidth="460"
+               style="-fx-text-fill: rgba(255,255,255,0.85);
+                      -fx-font-size: 15px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;
+                      -fx-line-spacing: 7;"/>
+
+        <Label fx:id="labelIndice"
+               focusTraversable="false"
+               text="▶  ESPACE  pour continuer"
+               style="-fx-text-fill: rgba(255,60,60,0.45);
+                      -fx-font-size: 11px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;"/>
+    </VBox>
+
+    <Line startX="0" endX="900" layoutY="599"
+          stroke="#ff3c3c" strokeWidth="1.5" opacity="0.4"/>
+
+</AnchorPane>
