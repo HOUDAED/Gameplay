@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane
+        fx:id="rootPane"
+        prefHeight="600.0"
+        prefWidth="900.0"
+        style="-fx-background-color: #08060f;"
+        xmlns="http://javafx.com/javafx/17.0.12"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.zukuk.controller.QuizController">
+
+    <children>
+
+        <Circle centerX="80"  centerY="60"  radius="1.2" fill="white" opacity="0.6"/>
+        <Circle centerX="200" centerY="30"  radius="0.8" fill="white" opacity="0.8"/>
+        <Circle centerX="500" centerY="20"  radius="1.5" fill="white" opacity="0.7"/>
+        <Circle centerX="750" centerY="90"  radius="1.2" fill="white" opacity="0.4"/>
+        <Circle centerX="820" centerY="35"  radius="1.0" fill="white" opacity="0.8"/>
+        <Circle centerX="420" centerY="110" radius="1.0" fill="white" opacity="0.5"/>
+        <Circle centerX="860" centerY="100" radius="1.2" fill="white" opacity="0.3"/>
+
+        <VBox
+                fx:id="contenuVBox"
+                alignment="CENTER"
+                spacing="28.0"
+                AnchorPane.topAnchor="0"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                style="-fx-padding: 50 80 50 80;">
+
+            <children>
+
+                <Label
+                        text="ZUKUK  //  PHASE 1 · ÉNIGMES"
+                        style="-fx-text-fill: rgba(255,60,60,0.25);
+                               -fx-font-size: 10px;
+                               -fx-font-family: 'Georgia';
+                               -fx-font-style: italic;"/>
+
+                <Line startX="0" endX="200"
+                      stroke="#ff3c3c" strokeWidth="1" opacity="0.4"/>
+
+                <Label
+                        fx:id="labelScore"
+                        text="0 / 5"
+                        style="-fx-text-fill: #ff6b35;
+                               -fx-font-size: 13px;
+                               -fx-font-family: 'Georgia';
+                               -fx-font-weight: bold;"/>
+
+                <Label
+                        fx:id="labelQuestion"
+                        text=""
+                        wrapText="true"
+                        prefWidth="700.0"
+                        style="-fx-text-fill: rgba(255,255,255,0.85);
+                               -fx-font-size: 17px;
+                               -fx-font-family: 'Georgia';
+                               -fx-font-style: italic;
+                               -fx-line-spacing: 6;
+                               -fx-alignment: CENTER;"/>
+
+                <GridPane
+                        fx:id="gridReponses"
+                        hgap="16" vgap="16"
+                        alignment="CENTER">
+
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="320"/>
+                        <ColumnConstraints prefWidth="320"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints prefHeight="50"/>
+                        <RowConstraints prefHeight="50"/>
+                    </rowConstraints>
+
+                    <children>
+                        <Button fx:id="btn0" wrapText="true" prefWidth="320" prefHeight="50"
+                                onAction="#handleReponse"
+                                style="-fx-background-color: transparent;
+                                       -fx-border-color: rgba(255,60,60,0.4);
+                                       -fx-border-width: 1px;
+                                       -fx-text-fill: rgba(255,255,255,0.8);
+                                       -fx-font-size: 13px;
+                                       -fx-font-family: 'Georgia';
+                                       -fx-cursor: hand;"
+                                GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+                        <Button fx:id="btn1" wrapText="true" prefWidth="320" prefHeight="50"
+                                onAction="#handleReponse"
+                                style="-fx-background-color: transparent;
+                                       -fx-border-color: rgba(255,60,60,0.4);
+                                       -fx-border-width: 1px;
+                                       -fx-text-fill: rgba(255,255,255,0.8);
+                                       -fx-font-size: 13px;
+                                       -fx-font-family: 'Georgia';
+                                       -fx-cursor: hand;"
+                                GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <Button fx:id="btn2" wrapText="true" prefWidth="320" prefHeight="50"
+                                onAction="#handleReponse"
+                                style="-fx-background-color: transparent;
+                                       -fx-border-color: rgba(255,60,60,0.4);
+                                       -fx-border-width: 1px;
+                                       -fx-text-fill: rgba(255,255,255,0.8);
+                                       -fx-font-size: 13px;
+                                       -fx-font-family: 'Georgia';
+                                       -fx-cursor: hand;"
+                                GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+                        <Button fx:id="btn3" wrapText="true" prefWidth="320" prefHeight="50"
+                                onAction="#handleReponse"
+                                style="-fx-background-color: transparent;
+                                       -fx-border-color: rgba(255,60,60,0.4);
+                                       -fx-border-width: 1px;
+                                       -fx-text-fill: rgba(255,255,255,0.8);
+                                       -fx-font-size: 13px;
+                                       -fx-font-family: 'Georgia';
+                                       -fx-cursor: hand;"
+                                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    </children>
+                </GridPane>
+
+                <Label
+                        fx:id="labelFeedback"
+                        text=""
+                        style="-fx-font-size: 13px;
+                               -fx-font-family: 'Georgia';
+                               -fx-font-style: italic;"/>
+
+                <Button
+                        fx:id="btnSuivant"
+                        text="SUIVANT  →"
+                        onAction="#handleSuivant"
+                        visible="false"
+                        style="-fx-background-color: transparent;
+                               -fx-border-color: #ff3c3c;
+                               -fx-border-width: 1px;
+                               -fx-text-fill: #ff3c3c;
+                               -fx-font-size: 12px;
+                               -fx-font-family: 'Georgia';
+                               -fx-padding: 10 36 10 36;
+                               -fx-cursor: hand;"/>
+
+            </children>
+        </VBox>
+
+        <Line startX="0" endX="900" layoutY="599"
+              stroke="#ff3c3c" strokeWidth="1" opacity="0.35"/>
+
+    </children>
+</AnchorPane>

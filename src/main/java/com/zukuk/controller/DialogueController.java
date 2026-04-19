@@ -3,20 +3,23 @@ package com.zukuk.controller;
 import com.zukuk.MainApp;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class DialogueController {
 
-    @FXML private Label     labelReplique;
-    @FXML private Label     labelIndice;
-    @FXML private Label     labelProgression;
-    @FXML private ImageView imageChef;
+    @FXML private AnchorPane rootPane;
+    @FXML private Label      labelReplique;
+    @FXML private Label      labelIndice;
+    @FXML private Label      labelProgression;
+    @FXML private ImageView  imageChef;
 
     private final String[] repliques = {
             "Écoute-moi bien. Une bombe a été placée quelque part en ville, "
@@ -53,11 +56,15 @@ public class DialogueController {
                     getClass().getResourceAsStream("/com/zukuk/images/chef.png")
             );
             imageChef.setImage(img);
-        } catch (Exception e) {
+        } catch (Exception e) {}
 
-        }
         majProgression();
         demarrerReplique();
+
+        Platform.runLater(() -> {
+            rootPane.getScene().setOnKeyPressed(this::onKeyPressed);
+            rootPane.requestFocus();
+        });
     }
 
     private void demarrerReplique() {
@@ -82,7 +89,6 @@ public class DialogueController {
         timeline.play();
     }
 
-
     @FXML
     public void onKeyPressed(KeyEvent event) {
         if (event.getCode() != KeyCode.SPACE) return;
@@ -105,7 +111,6 @@ public class DialogueController {
                 break;
         }
     }
-
 
     private void majProgression() {
         labelProgression.setText((indexReplique + 1) + " / " + repliques.length);

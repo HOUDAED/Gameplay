@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private static Stage primaryStage;
+    private static final String BASE_PATH = "/com/zukuk/view/";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -21,15 +22,17 @@ public class MainApp extends Application {
 
     public static void loadScene(String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    MainApp.class.getResource("/com/zukuk/view/" + fxmlFile)
-            );
+            var url = MainApp.class.getResource(BASE_PATH + fxmlFile);
+
+            if (url == null) {
+                System.err.println("FXML introuvable : " + BASE_PATH + fxmlFile);
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(url);
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-
-            // FIX #4 — donne le focus au root pour que les KeyEvents
-            // (ex : ESPACE dans DialogueController) soient bien reçus
             root.requestFocus();
 
         } catch (Exception e) {
