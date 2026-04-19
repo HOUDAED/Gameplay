@@ -50,7 +50,8 @@
           alignment="CENTER_LEFT" spacing="28"
           style="-fx-padding: 60 50 40 40;">
 
-        <Label text="ZUKUK  //  BRIEFING"
+        <Label fx:id="labelBriefing"
+               text="ZUKUK  //  BRIEFING"
                focusTraversable="false"
                style="-fx-text-fill: rgba(255,60,60,0.25);
                       -fx-font-size: 10px;

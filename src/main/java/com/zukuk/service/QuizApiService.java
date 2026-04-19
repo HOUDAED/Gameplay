@@ -21,28 +21,40 @@ public class QuizApiService {
 
     public QuizQuestion fetchQuestion() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL))
-                .GET()
-                .build();
+        int tentatives = 0;
 
-        HttpResponse<String> response =
-                client.send(request, HttpResponse.BodyHandlers.ofString());
+        while (tentatives < 3) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(API_URL))
+                    .GET()
+                    .build();
 
-        JSONObject json  = new JSONObject(response.body());
-        JSONObject q     = json.getJSONArray("results").getJSONObject(0);
+            HttpResponse<String> response =
+                    client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        String question  = decode(q.getString("question"));
-        String correct   = decode(q.getString("correct_answer"));
+            JSONObject json = new JSONObject(response.body());
+            int code = json.getInt("response_code");
 
-        List<String> answers = new ArrayList<>();
-        answers.add(correct);
-        JSONArray wrongs = q.getJSONArray("incorrect_answers");
-        for (int i = 0; i < wrongs.length(); i++)
-            answers.add(decode(wrongs.getString(i)));
+            if (code == 0) {
+                JSONObject q    = json.getJSONArray("results").getJSONObject(0);
+                String question = decode(q.getString("question"));
+                String correct  = decode(q.getString("correct_answer"));
 
-        Collections.shuffle(answers);
-        return new QuizQuestion(question, correct, answers);
+                List<String> answers = new ArrayList<>();
+                answers.add(correct);
+                JSONArray wrongs = q.getJSONArray("incorrect_answers");
+                for (int i = 0; i < wrongs.length(); i++)
+                    answers.add(decode(wrongs.getString(i)));
+
+                Collections.shuffle(answers);
+                return new QuizQuestion(question, correct, answers);
+            }
+
+            tentatives++;
+            Thread.sleep(1000);
+        }
+
+        throw new Exception("OpenTDB indisponible après 3 tentatives (response_code != 0)");
     }
 
     private String decode(String s) {

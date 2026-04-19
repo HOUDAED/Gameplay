@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class DialogueController {
@@ -19,9 +20,10 @@ public class DialogueController {
     @FXML private Label      labelReplique;
     @FXML private Label      labelIndice;
     @FXML private Label      labelProgression;
+    @FXML private Label      labelBriefing;
     @FXML private ImageView  imageChef;
 
-    private final String[] repliques = {
+    private static final String[] REPLIQUES_INTRO = {
             "Écoute-moi bien. Une bombe a été placée quelque part en ville, "
                     + "et tout repose sur toi. Nous n'avons pas de temps à perdre. "
                     + "Chaque seconde compte.",
@@ -42,6 +44,30 @@ public class DialogueController {
                     + "La ville compte sur toi."
     };
 
+    private static final String[] REPLIQUES_INTER1 = {
+            "Bien joué. Tu as bien avancé jusqu'ici. Tu as résolu toutes les énigmes, "
+                    + "et maintenant, nous avons une meilleure idée de l'endroit où la bombe "
+                    + "pourrait être. Mais la tâche n'est pas encore terminée.",
+
+            "Maintenant, il te faut localiser l'emplacement exact. Pour cela, tu vas "
+                    + "interroger des suspects. Certains te diront la vérité, d'autres mentiront. "
+                    + "Ce sera à toi de discerner qui est fiable et qui ne l'est pas.",
+
+            "Le temps presse. Chaque erreur pourrait nous coûter cher, alors fais attention. "
+                    + "Nous n'avons pas de marge pour les hésitations. "
+                    + "Trouve où elle se cache, et on pourra passer à l'étape suivante.",
+
+            "Tu es notre seul espoir, et je sais que tu peux le faire. "
+                    + "Trouve la bombe, localise-la avec précision. "
+                    + "C'est à toi de mener cette mission à bien.",
+
+            "Allez, il ne reste plus beaucoup de temps. "
+                    + "Trouve cette bombe, et sauve tout le monde."
+    };
+
+    private String[] repliques;
+    private String   sceneSuivante;
+
     private int      indexReplique = 0;
     private int      indexChar     = 0;
     private Timeline timeline;
@@ -56,15 +82,34 @@ public class DialogueController {
                     getClass().getResourceAsStream("/com/zukuk/images/chef.png")
             );
             imageChef.setImage(img);
+            Rectangle clip = new Rectangle(300, 320);
+            imageChef.setClip(clip);
         } catch (Exception e) {}
 
+        setDialogue(REPLIQUES_INTRO, "quiz.fxml", "ZUKUK  //  BRIEFING");
+    }
+
+    public void setDialogue(String[] repliques, String sceneSuivante, String titreHaut) {
+        if (timeline != null) {
+            timeline.stop();
+            timeline = null;
+        }
+        this.repliques     = repliques;
+        this.sceneSuivante = sceneSuivante;
+        this.indexReplique = 0;
+        this.indexChar     = 0;
+        this.etat          = Etat.ECRITURE;
+        if (labelBriefing != null) labelBriefing.setText(titreHaut);
         majProgression();
         demarrerReplique();
-
         Platform.runLater(() -> {
             rootPane.getScene().setOnKeyPressed(this::onKeyPressed);
             rootPane.requestFocus();
         });
+    }
+
+    public static String[] getrepliquesInter1() {
+        return REPLIQUES_INTER1;
     }
 
     private void demarrerReplique() {
@@ -91,6 +136,7 @@ public class DialogueController {
 
     @FXML
     public void onKeyPressed(KeyEvent event) {
+        if (timeline == null || repliques == null) return;
         if (event.getCode() != KeyCode.SPACE) return;
 
         switch (etat) {
@@ -106,13 +152,14 @@ public class DialogueController {
                 if (indexReplique < repliques.length) {
                     demarrerReplique();
                 } else {
-                    MainApp.loadScene("quiz.fxml");
+                    MainApp.loadScene(sceneSuivante);
                 }
                 break;
         }
     }
 
     private void majProgression() {
-        labelProgression.setText((indexReplique + 1) + " / " + repliques.length);
+        if (repliques != null)
+            labelProgression.setText((indexReplique + 1) + " / " + repliques.length);
     }
 }
