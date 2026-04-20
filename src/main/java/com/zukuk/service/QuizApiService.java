@@ -18,43 +18,58 @@ public class QuizApiService {
 
     private static final String API_URL =
             "https://opentdb.com/api.php?amount=1&type=multiple&encode=url3986";
+    private static final int MAX_TENTATIVES = 5;
+    private static final int DELAI_MS = 2000;
 
     public QuizQuestion fetchQuestion() throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-        int tentatives = 0;
+        Exception dernierErreur = null;
 
-        while (tentatives < 3) {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(API_URL))
-                    .GET()
-                    .build();
+        for (int tentative = 1; tentative <= MAX_TENTATIVES; tentative++) {
+            try {
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(API_URL))
+                        .GET()
+                        .build();
 
-            HttpResponse<String> response =
-                    client.send(request, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response =
+                        client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            JSONObject json = new JSONObject(response.body());
-            int code = json.getInt("response_code");
+                JSONObject json = new JSONObject(response.body());
+                int responseCode = json.getInt("response_code");
 
-            if (code == 0) {
-                JSONObject q    = json.getJSONArray("results").getJSONObject(0);
-                String question = decode(q.getString("question"));
-                String correct  = decode(q.getString("correct_answer"));
+                if (responseCode == 0) {
+                    JSONObject q = json.getJSONArray("results").getJSONObject(0);
+                    String question = decode(q.getString("question"));
+                    String correct  = decode(q.getString("correct_answer"));
 
-                List<String> answers = new ArrayList<>();
-                answers.add(correct);
-                JSONArray wrongs = q.getJSONArray("incorrect_answers");
-                for (int i = 0; i < wrongs.length(); i++)
-                    answers.add(decode(wrongs.getString(i)));
+                    List<String> answers = new ArrayList<>();
+                    answers.add(correct);
+                    JSONArray wrongs = q.getJSONArray("incorrect_answers");
+                    for (int i = 0; i < wrongs.length(); i++)
+                        answers.add(decode(wrongs.getString(i)));
 
-                Collections.shuffle(answers);
-                return new QuizQuestion(question, correct, answers);
+                    Collections.shuffle(answers);
+                    return new QuizQuestion(question, correct, answers);
+                }
+
+                System.err.println("OpenTDB response_code=" + responseCode
+                        + " — tentative " + tentative + "/" + MAX_TENTATIVES);
+
+                if (tentative < MAX_TENTATIVES)
+                    Thread.sleep(DELAI_MS);
+
+            } catch (Exception e) {
+                dernierErreur = e;
+                System.err.println("Erreur réseau tentative " + tentative
+                        + "/" + MAX_TENTATIVES + " : " + e.getMessage());
+                if (tentative < MAX_TENTATIVES)
+                    Thread.sleep(DELAI_MS);
             }
-
-            tentatives++;
-            Thread.sleep(1000);
         }
 
-        throw new Exception("OpenTDB indisponible après 3 tentatives (response_code != 0)");
+        throw new Exception("OpenTDB indisponible après "
+                + MAX_TENTATIVES + " tentatives", dernierErreur);
     }
 
     private String decode(String s) {

@@ -11,7 +11,7 @@
         style="-fx-background-color: #08060f;"
         xmlns="http://javafx.com/javafx/17.0.12"
         xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.zukuk.controller.QuizEnigmesController">
+        fx:controller="com.zukuk.controller.QuizLocalisationController">
 
     <children>
 
@@ -36,7 +36,7 @@
             <children>
 
                 <Label
-                        text="ZUKUK  //  PHASE 1 · ÉNIGMES"
+                        text="ZUKUK  //  PHASE 2 · LOCALISATION"
                         style="-fx-text-fill: rgba(255,60,60,0.25);
                                -fx-font-size: 10px;
                                -fx-font-family: 'Georgia';

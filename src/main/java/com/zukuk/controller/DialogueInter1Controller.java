@@ -27,7 +27,7 @@ public class DialogueInter1Controller extends DialogueController {
     protected String[] getRepliques()      { return REPLIQUES; }
 
     @Override
-    protected String getSceneSuivante()    { return "quiz2.fxml"; }
+    protected String getSceneSuivante()    { return "dev-quiz-localisation.fxml"; }
 
     @Override
     protected String getTitreHaut()        { return "ZUKUK  //  LOCALISATION"; }

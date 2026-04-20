@@ -12,18 +12,19 @@ import javafx.scene.layout.GridPane;
 
 public class QuizController {
 
-    @FXML private AnchorPane rootPane;
-    @FXML private Label      labelScore;
-    @FXML private Label      labelQuestion;
-    @FXML private Label      labelFeedback;
-    @FXML private Button     btn0, btn1, btn2, btn3;
-    @FXML private Button     btnSuivant;
-    @FXML private GridPane   gridReponses;
+    @FXML protected AnchorPane rootPane;
+    @FXML protected Label      labelScore;
+    @FXML protected Label      labelQuestion;
+    @FXML protected Label      labelFeedback;
+    @FXML protected Button     btn0, btn1, btn2, btn3;
+    @FXML protected Button     btnSuivant;
+    @FXML protected GridPane   gridReponses;
 
-    private final QuizApiService api = new QuizApiService();
-    private QuizQuestion questionActuelle;
-    private int score = 0;
-    private Button[] boutons;
+    protected final QuizApiService api = new QuizApiService();
+    protected QuizQuestion questionActuelle;
+    protected int score = 0;
+    protected Button[] boutons;
+    protected String sceneSuivante = "";
 
     @FXML
     public void initialize() {
@@ -31,20 +32,27 @@ public class QuizController {
         chargerQuestion();
     }
 
-    private void chargerQuestion() {
+    protected void chargerQuestion() {
         labelQuestion.setText("Chargement...");
         labelFeedback.setText("");
         btnSuivant.setVisible(false);
-        activerBoutons(true);
+        activerBoutons(false);
 
         new Thread(() -> {
             try {
                 QuizQuestion q = api.fetchQuestion();
-                Platform.runLater(() -> afficherQuestion(q));
+                Platform.runLater(() -> {
+                    afficherQuestion(q);
+                    activerBoutons(true);
+                });
             } catch (Exception e) {
-                Platform.runLater(() ->
-                        labelQuestion.setText("Erreur réseau. Nouvelle tentative...")
-                );
+                Platform.runLater(() -> {
+                    labelQuestion.setText("Impossible de charger une question.");
+                    labelFeedback.setText("Vérifiez votre connexion internet.");
+                    labelFeedback.setStyle("-fx-text-fill: #ff3c3c; -fx-font-size: 13px; -fx-font-family: 'Georgia'; -fx-font-style: italic;");
+                    btnSuivant.setText("RÉESSAYER  →");
+                    btnSuivant.setVisible(true);
+                });
                 e.printStackTrace();
             }
         }).start();
@@ -53,7 +61,6 @@ public class QuizController {
     private void afficherQuestion(QuizQuestion q) {
         questionActuelle = q;
         labelQuestion.setText(q.getQuestion());
-
         for (int i = 0; i < boutons.length; i++) {
             boutons[i].setText(q.getAllAnswers().get(i));
             boutons[i].setStyle(styleBoutonNormal());
@@ -79,36 +86,30 @@ public class QuizController {
             labelFeedback.setStyle("-fx-text-fill: #ff3c3c; -fx-font-size: 13px; -fx-font-family: 'Georgia'; -fx-font-style: italic;");
         }
 
-        if (score >= 5) {
-            btnSuivant.setText("CONTINUER  →");
-        } else {
-            btnSuivant.setText("SUIVANT  →");
-        }
+        btnSuivant.setText(score >= 5 ? "CONTINUER  →" : "SUIVANT  →");
         btnSuivant.setVisible(true);
     }
 
     @FXML
-    private void handleSuivant() {
+    protected void handleSuivant() {
         if (score >= 5) {
-            MainApp.loadScene("dialogue_inter1.fxml");
+            MainApp.loadScene(sceneSuivante);
         } else {
             chargerQuestion();
         }
     }
 
     private void surlignerBonneReponse() {
-        for (Button b : boutons) {
-            if (b.getText().equals(questionActuelle.getCorrectAnswer())) {
+        for (Button b : boutons)
+            if (b.getText().equals(questionActuelle.getCorrectAnswer()))
                 b.setStyle(styleBoutonCorrect());
-            }
-        }
     }
 
     private void activerBoutons(boolean actif) {
         for (Button b : boutons) b.setDisable(!actif);
     }
 
-    private String styleBoutonNormal() {
+    protected String styleBoutonNormal() {
         return "-fx-background-color: transparent;" +
                 "-fx-border-color: rgba(255,60,60,0.4);" +
                 "-fx-border-width: 1px;" +
@@ -118,7 +119,7 @@ public class QuizController {
                 "-fx-cursor: hand;";
     }
 
-    private String styleBoutonCorrect() {
+    protected String styleBoutonCorrect() {
         return "-fx-background-color: rgba(76,175,80,0.15);" +
                 "-fx-border-color: #4caf50;" +
                 "-fx-border-width: 1px;" +
@@ -127,7 +128,7 @@ public class QuizController {
                 "-fx-font-family: 'Georgia';";
     }
 
-    private String styleBoutonIncorrect() {
+    protected String styleBoutonIncorrect() {
         return "-fx-background-color: rgba(255,60,60,0.15);" +
                 "-fx-border-color: #ff3c3c;" +
                 "-fx-border-width: 1px;" +
