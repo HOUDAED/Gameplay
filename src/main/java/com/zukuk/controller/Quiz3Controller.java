@@ -21,10 +21,10 @@ public class Quiz3Controller {
     @FXML private Button     btnSuivant;
     @FXML private GridPane   gridReponses;
 
-    private final QuizApiService api          = new QuizApiService();
+    private final QuizApiService api            = new QuizApiService();
     private QuizQuestion         questionActuelle;
-    private int                  score        = 0;
-    private int                  tentatives   = 0;
+    private int                  score          = 0;
+    private int                  tentatives     = 0;
     private static final int     MAX_TENTATIVES = 10;
     private Button[]             boutons;
 
@@ -73,12 +73,11 @@ public class Quiz3Controller {
     @FXML
     private void handleReponse(javafx.event.ActionEvent event) {
         Button clique = (Button) event.getSource();
-        String reponse = clique.getText();
         activerBoutons(false);
         tentatives++;
         majTentatives();
 
-        if (reponse.equals(questionActuelle.getCorrectAnswer())) {
+        if (clique.getText().equals(questionActuelle.getCorrectAnswer())) {
             score++;
             labelScore.setText(score + " / 5");
             clique.setStyle(styleBoutonCorrect());
@@ -93,22 +92,20 @@ public class Quiz3Controller {
 
         if (score >= 5) {
             btnSuivant.setText("DÉSAMORCER  →");
-            btnSuivant.setVisible(true);
         } else if (tentatives >= MAX_TENTATIVES) {
             labelFeedback.setText("La bombe a explosé... Vous avez échoué.");
             labelFeedback.setStyle("-fx-text-fill: #ff3c3c; -fx-font-size: 14px; -fx-font-family: 'Georgia'; -fx-font-weight: bold;");
             btnSuivant.setText("GAME OVER  →");
-            btnSuivant.setVisible(true);
         } else {
             btnSuivant.setText("SUIVANT  →");
-            btnSuivant.setVisible(true);
         }
+        btnSuivant.setVisible(true);
     }
 
     @FXML
     private void handleSuivant() {
         if (score >= 5) {
-            MainApp.loadScene("victoire.fxml");
+            MainApp.loadScene("dialogue_final.fxml");
         } else if (tentatives >= MAX_TENTATIVES) {
             MainApp.loadScene("defaite.fxml");
         } else {

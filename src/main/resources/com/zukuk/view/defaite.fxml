@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane
+        prefHeight="600.0" prefWidth="900.0"
+        style="-fx-background-color: #08060f;"
+        xmlns="http://javafx.com/javafx/17.0.12"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.zukuk.controller.DefaiteController">
+
+    <Circle centerX="150" centerY="80"  radius="1.2" fill="white" opacity="0.3"/>
+    <Circle centerX="700" centerY="60"  radius="1.0" fill="white" opacity="0.2"/>
+    <Circle centerX="400" centerY="40"  radius="0.8" fill="white" opacity="0.3"/>
+
+    <VBox alignment="CENTER" spacing="22"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          style="-fx-padding: 40 80 40 80;">
+
+        <Label text="ZUKUK  //  MISSION ÉCHOUÉE"
+               style="-fx-text-fill: rgba(255,60,60,0.25);
+                      -fx-font-size: 10px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;"/>
+
+        <Line startX="0" endX="200" stroke="#ff3c3c" strokeWidth="1" opacity="0.4"/>
+
+        <ImageView fx:id="imageExplosion"
+                   fitWidth="260" fitHeight="180"
+                   preserveRatio="true"
+                   style="-fx-effect: dropshadow(gaussian, #ff3c3c, 28, 0.4, 0, 0);"/>
+
+        <Label text="L'échec est total. La bombe a explosé."
+               style="-fx-text-fill: #ff3c3c;
+                      -fx-font-size: 18px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-weight: bold;"/>
+
+        <Label text="Le Chef, qui avait placé toute sa confiance en toi, est mort dans l'explosion."
+               wrapText="true" prefWidth="660"
+               style="-fx-text-fill: rgba(255,255,255,0.55);
+                      -fx-font-size: 14px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;
+                      -fx-alignment: CENTER;"/>
+
+        <Label text="La ville a été détruite. Des vies ont été perdues. Tout est fini."
+               wrapText="true" prefWidth="660"
+               style="-fx-text-fill: rgba(255,255,255,0.4);
+                      -fx-font-size: 13px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;
+                      -fx-alignment: CENTER;"/>
+
+        <Label text="On est tous très déçus."
+               style="-fx-text-fill: rgba(255,60,60,0.4);
+                      -fx-font-size: 12px;
+                      -fx-font-family: 'Georgia';
+                      -fx-font-style: italic;"/>
+
+        <Line startX="0" endX="200" stroke="#ff3c3c" strokeWidth="1" opacity="0.3"/>
+
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="RÉESSAYER"
+                    onAction="#handleReessayer"
+                    style="-fx-background-color: transparent;
+                           -fx-border-color: #ff3c3c;
+                           -fx-border-width: 1px;
+                           -fx-text-fill: #ff3c3c;
+                           -fx-font-size: 12px;
+                           -fx-font-family: 'Georgia';
+                           -fx-padding: 10 36 10 36;
+                           -fx-cursor: hand;"/>
+            <Button text="QUITTER"
+                    onAction="#handleQuitter"
+                    style="-fx-background-color: transparent;
+                           -fx-border-color: rgba(255,255,255,0.2);
+                           -fx-border-width: 1px;
+                           -fx-text-fill: rgba(255,255,255,0.3);
+                           -fx-font-size: 12px;
+                           -fx-font-family: 'Georgia';
+                           -fx-padding: 10 36 10 36;
+                           -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+
+    <Line startX="0" endX="900" layoutY="599"
+          stroke="#ff3c3c" strokeWidth="1" opacity="0.35"/>
+</AnchorPane>
