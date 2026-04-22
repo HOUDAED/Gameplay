@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane
+        fx:id="rootPane"
+        prefHeight="600.0"
+        prefWidth="900.0"
+        style="-fx-background-color: #08060f;"
+        xmlns="http://javafx.com/javafx/17.0.12"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.zukuk.controller.AccueilController">
+
+    <children>
+
+        <Circle centerX="80"  centerY="60"  radius="1.2" fill="white" opacity="0.6"/>
+        <Circle centerX="200" centerY="30"  radius="0.8" fill="white" opacity="0.8"/>
+        <Circle centerX="350" centerY="80"  radius="1.0" fill="white" opacity="0.5"/>
+        <Circle centerX="500" centerY="20"  radius="1.5" fill="white" opacity="0.7"/>
+        <Circle centerX="650" centerY="55"  radius="0.8" fill="white" opacity="0.6"/>
+        <Circle centerX="750" centerY="90"  radius="1.2" fill="white" opacity="0.4"/>
+        <Circle centerX="820" centerY="35"  radius="1.0" fill="white" opacity="0.8"/>
+        <Circle centerX="140" centerY="140" radius="0.8" fill="white" opacity="0.4"/>
+        <Circle centerX="420" centerY="110" radius="1.0" fill="white" opacity="0.5"/>
+        <Circle centerX="700" centerY="130" radius="0.8" fill="white" opacity="0.6"/>
+        <Circle centerX="860" centerY="100" radius="1.2" fill="white" opacity="0.3"/>
+        <Circle centerX="30"  centerY="200" radius="0.8" fill="white" opacity="0.5"/>
+        <Circle centerX="560" centerY="150" radius="1.0" fill="white" opacity="0.4"/>
+
+        <Polygon
+                points="0,600, 0,480, 40,480, 40,450, 70,450, 70,420, 90,420, 90,400,
+                        110,400, 110,380, 130,380, 130,420, 150,420, 150,440,
+                        180,440, 180,410, 200,410, 200,390, 220,390, 220,440,
+                        260,440, 260,400, 280,400, 280,370, 300,370, 300,400,
+                        320,400, 320,440, 360,440, 360,420, 380,420, 380,460,
+                        420,460, 420,430, 440,430, 440,410, 460,410, 460,430,
+                        480,430, 480,460, 520,460, 520,420, 545,420, 545,400,
+                        560,400, 560,420, 580,420, 580,440, 620,440, 620,410,
+                        640,410, 640,390, 660,390, 660,410, 680,410, 680,440,
+                        720,440, 720,460, 750,460, 750,430, 770,430, 770,410,
+                        800,410, 800,440, 830,440, 830,420, 860,420, 860,450,
+                        900,450, 900,600"
+                fill="#0f0a1a"/>
+
+        <Polygon
+                points="0,600, 0,520, 30,520, 30,500, 55,500, 55,520,
+                        90,520, 90,505, 120,505, 120,490, 140,490, 140,505,
+                        170,505, 170,515, 210,515, 210,500, 240,500, 240,515,
+                        280,515, 280,505, 310,505, 310,490, 330,490, 330,505,
+                        370,505, 370,515, 410,515, 410,500, 440,500, 440,520,
+                        480,520, 480,505, 510,505, 510,490, 530,490, 530,505,
+                        570,505, 570,515, 610,515, 610,500, 640,500, 640,515,
+                        680,515, 680,505, 710,505, 710,490, 730,490, 730,505,
+                        770,505, 770,520, 810,520, 810,505, 840,505, 840,520,
+                        900,520, 900,600"
+                fill="#0a0612"/>
+
+        <Line
+                startX="0" endX="900"
+                layoutY="488"
+                stroke="#ff3c3c"
+                strokeWidth="1"
+                opacity="0.35"/>
+
+        <!-- Fenêtres lumineuses -->
+        <Rectangle layoutX="115" layoutY="388" width="5" height="3" fill="#ff9944" opacity="0.6"/>
+        <Rectangle layoutX="285" layoutY="378" width="5" height="3" fill="#ff9944" opacity="0.5"/>
+        <Rectangle layoutX="445" layoutY="418" width="4" height="3" fill="#ffcc66" opacity="0.5"/>
+        <Rectangle layoutX="550" layoutY="408" width="5" height="3" fill="#ff9944" opacity="0.4"/>
+        <Rectangle layoutX="660" layoutY="398" width="4" height="3" fill="#ffcc66" opacity="0.5"/>
+        <Rectangle layoutX="775" layoutY="418" width="5" height="3" fill="#ff9944" opacity="0.6"/>
+
+        <VBox
+                fx:id="contenuVBox"
+                alignment="CENTER"
+                spacing="18.0"
+                AnchorPane.topAnchor="40"
+                AnchorPane.bottomAnchor="180"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0">
+
+            <children>
+
+                <Label
+                        text="UNE MISSION  ·  UNE BOMBE  ·  UN HÉROS"
+                        style="-fx-text-fill: #ff6b35;
+                               -fx-font-size: 11px;
+                               -fx-font-family: 'Georgia';" />
+
+                <Label
+                        text="ZUKUK"
+                        style="-fx-text-fill: white;
+                               -fx-font-size: 108px;
+                               -fx-font-weight: bold;
+                               -fx-font-family: 'Georgia';
+                               -fx-effect: dropshadow(gaussian, #ff2200, 30, 0.4, 0, 0);" />
+
+                <Label
+                        text="escape game  ·  quiz de survie"
+                        style="-fx-text-fill: rgba(255,255,255,0.35);
+                               -fx-font-size: 14px;
+                               -fx-font-family: 'Georgia';
+                               -fx-font-style: italic;" />
+
+                <Line
+                        startX="-40" endX="40"
+                        stroke="#ff3c3c"
+                        strokeWidth="1"
+                        opacity="0.7"/>
+
+                <Label
+                        text="La ville est en danger. Vous êtes notre dernière chance."
+                        style="-fx-text-fill: rgba(255,255,255,0.5);
+                               -fx-font-size: 13px;
+                               -fx-font-family: 'Georgia';
+                               -fx-font-style: italic;" />
+
+                <Button
+                        fx:id="btnCommencerAventure"
+                        text="COMMENCER L'AVENTURE"
+                        onAction="#handleCommencerAventure"
+                        style="-fx-background-color: transparent;
+                               -fx-border-color: #ff3c3c;
+                               -fx-border-width: 1px;
+                               -fx-text-fill: #ff3c3c;
+                               -fx-font-size: 12px;
+                               -fx-font-family: 'Georgia';
+                               -fx-padding: 12 40 12 40;
+                               -fx-cursor: hand;" />
+
+            </children>
+        </VBox>
+
+    </children>
+</AnchorPane>
