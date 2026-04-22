@@ -1,5 +1,7 @@
 package com.zukuk;
 
+import com.zukuk.model.SaveData;
+import com.zukuk.service.SaveService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +10,8 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    private static Stage primaryStage;
+    private static Stage  primaryStage;
+    private static String sceneCourante = "dialogue_intro.fxml";
     private static final String BASE_PATH = "/com/zukuk/view/";
 
     @Override
@@ -20,6 +23,11 @@ public class MainApp extends Application {
         primaryStage.show();
     }
 
+    @Override
+    public void stop() {
+        SaveService.sauvegarder(new SaveData(sceneCourante));
+    }
+
     public static void loadScene(String fxmlFile) {
         try {
             var url = MainApp.class.getResource(BASE_PATH + fxmlFile);
@@ -27,6 +35,7 @@ public class MainApp extends Application {
                 System.err.println("FXML introuvable : " + BASE_PATH + fxmlFile);
                 return;
             }
+            sceneCourante = fxmlFile;
             FXMLLoader loader = new FXMLLoader(url);
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -36,6 +45,9 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
+    public static SaveData getSauvegarde()  { return SaveService.charger(); }
+    public static boolean  hasSauvegarde()  { return SaveService.sauvegardeExiste(); }
 
     public static void main(String[] args) {
         launch(args);

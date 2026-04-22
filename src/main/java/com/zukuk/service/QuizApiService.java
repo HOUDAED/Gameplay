@@ -19,7 +19,7 @@ public class QuizApiService {
     private static final String API_URL =
             "https://opentdb.com/api.php?amount=1&type=multiple&encode=url3986";
     private static final int MAX_TENTATIVES = 5;
-    private static final int DELAI_MS = 2000;
+    private static final int DELAI_MS = 5000;
 
     public QuizQuestion fetchQuestion() throws Exception {
         Exception dernierErreur = null;

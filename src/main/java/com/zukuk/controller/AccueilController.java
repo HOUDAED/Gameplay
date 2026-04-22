@@ -26,7 +26,7 @@ public class AccueilController {
         FadeTransition fade = new FadeTransition(Duration.millis(700), rootPane);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
-        fade.setOnFinished(e -> MainApp.loadScene("menu.fxml"));
+        fade.setOnFinished(e ->     MainApp.loadScene("menu.fxml"));
         fade.play();
     }
 }

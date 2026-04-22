@@ -1,6 +1,7 @@
 package com.zukuk.controller;
 
 import com.zukuk.MainApp;
+import com.zukuk.service.SaveService;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,8 @@ public class VictoireController {
             );
             imageVictoire.setImage(img);
         } catch (Exception e) {}
+
+        SaveService.effacerSauvegarde();
     }
 
     @FXML

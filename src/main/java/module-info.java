@@ -10,4 +10,5 @@ module com.zukuk {
     opens com.zukuk.model to javafx.fxml;
     opens com.zukuk.service to javafx.fxml;
     exports com.zukuk;
+    exports com.zukuk.service;
 }
