@@ -3,12 +3,14 @@ package com.zukuk.controller;
 import com.zukuk.MainApp;
 import com.zukuk.model.QuizQuestion;
 import com.zukuk.service.QuizApiService;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 public class Quiz3Controller {
 
@@ -95,7 +97,10 @@ public class Quiz3Controller {
         } else if (tentatives >= MAX_TENTATIVES) {
             labelFeedback.setText("La bombe a explosé... Vous avez échoué.");
             labelFeedback.setStyle("-fx-text-fill: #ff3c3c; -fx-font-size: 14px; -fx-font-family: 'Georgia'; -fx-font-weight: bold;");
-            btnSuivant.setText("GAME OVER  →");
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> MainApp.loadScene("defaite.fxml"));
+            pause.play();
+
         } else {
             btnSuivant.setText("SUIVANT  →");
         }
@@ -106,8 +111,6 @@ public class Quiz3Controller {
     private void handleSuivant() {
         if (score >= 5) {
             MainApp.loadScene("dialogue_final.fxml");
-        } else if (tentatives >= MAX_TENTATIVES) {
-            MainApp.loadScene("defaite.fxml");
         } else {
             chargerQuestion();
         }
